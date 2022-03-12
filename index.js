@@ -1,15 +1,23 @@
 const { app, BrowserWindow, ipcMain } = require('electron')
+const autoUpdater = require('electron-updater').autoUpdater;
+const path = require('path');
+const url = require('url');
+const ejse = require('ejs-electron');
 
 const initWindow = () => {
-    const win = new BrowserWindow({
+    const frame = new BrowserWindow({
         width: 800,
         height: 600,
         closable: true,
         center: true,
         hasShadow: true,
-        autoHideMenuBar: true
+        webPreferences: {
+            preload: path.join(__dirname, "app/js/preload.js"),
+            nodeIntegration: true
+        }
     })
-    win.loadFile("./index.html")
+    frame.setTitle("DisBuilder");
+    frame.loadFile("./app/home.ejs")
 }
 
 app.whenReady().then(() => {
