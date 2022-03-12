@@ -6,18 +6,21 @@ const ejse = require('ejs-electron');
 
 const initWindow = () => {
     const frame = new BrowserWindow({
-        width: 800,
-        height: 600,
+        width: 1080,
+        height: 720,
         closable: true,
         center: true,
+        fullscreenable: false,
+        maximizable: false,
         hasShadow: true,
         webPreferences: {
-            preload: path.join(__dirname, "app/js/preload.js"),
-            nodeIntegration: true
+            preload: __dirname+"/app/js/preload.js",
+            nodeIntegration: true,
+            contextIsolation: false
         }
     })
     frame.setTitle("DisBuilder");
-    frame.loadFile("./app/home.ejs")
+    frame.loadFile(path.join(__dirname, "app/home.ejs"))
 }
 
 app.whenReady().then(() => {
