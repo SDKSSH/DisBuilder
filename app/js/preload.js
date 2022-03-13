@@ -9,3 +9,4 @@ getSession = () => {
 send = (channel, ...msg) => {
     ipcRenderer.send(channel, msg);
 }
+

@@ -21,7 +21,6 @@ module.exports = class UserSession {
     }
     
     load(){
-        console.log(__dirname)
         if(fs.existsSync(path.join(__dirname, "../../config.json"))){
             const file = require(path.join(__dirname, "../../config.json"));
             this.setToken(file.token)
