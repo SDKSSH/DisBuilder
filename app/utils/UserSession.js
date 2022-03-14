@@ -1,17 +1,12 @@
 const fs = require("fs");
 const path = require("path");
+const folder = path.join(process.env.APPDATA, ".disbuilder");
 
 module.exports = class UserSession {
     constructor(){
         this.discord_token = "";
-        this.addons = [];
         this.load();
     }
-
-    getAddons(){
-        return this.addons;
-    }
-
     getToken(){
         return this.discord_token;
     }
@@ -21,14 +16,17 @@ module.exports = class UserSession {
     }
     
     load(){
-        if(fs.existsSync(path.join(__dirname, "../../config.json"))){
-            const file = require(path.join(__dirname, "../../config.json"));
+        if(!fs.existsSync(folder)){
+            fs.mkdirSync(folder);
+        }
+        if(fs.existsSync(path.join(folder, "config.json"))){
+            const file = require(path.join(folder, "config.json"));
             this.setToken(file.token)
         }else{
             const json = {
                 "token" : "token"
             }
-            fs.writeFileSync(path.join(__dirname, "../../config.json"), JSON.stringify(json))
+            fs.writeFileSync(path.join(folder, "config.json"), JSON.stringify(json))
         }
     }
 

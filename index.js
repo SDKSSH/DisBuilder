@@ -3,6 +3,9 @@ const autoUpdater = require('electron-updater').autoUpdater;
 const path = require('path');
 const url = require('url');
 const ejse = require('ejs-electron');
+const AddonManager = require("./addons/AddonManager");
+
+AddonManager.load()
 
 const initWindow = () => {
     const frame = new BrowserWindow({
@@ -14,7 +17,7 @@ const initWindow = () => {
         maximizable: false,
         hasShadow: true,
         webPreferences: {
-            preload: __dirname+"/app/js/preload.js",
+            preload: path.join(__dirname, "app/js/preload.js"),
             nodeIntegration: true,
             contextIsolation: false
         }
